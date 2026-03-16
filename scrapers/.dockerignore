@@ -1,0 +1,57 @@
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+ENV/
+env/
+.venv
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment
+.env
+.env.local
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Browser data
+.playwright/
+.wdm/
+browsers/
+
+# Data (already in volume mount, no need to copy)
+# data/ is kept because it's needed in runtime
+
+# Misc
+.tmp/
+*.tmp
+README.md

@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned\")",
+      "Bash(claude mcp:*)",
+      "Read(//c/Users/kenne/**)",
+      "Read(//c/Users/kenne/.claude/**)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(sleep:*)",
+      "Bash(netstat:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell -Command \"Invoke-RestMethod http://127.0.0.1:8000/\" 2>&1)",
+      "Bash(powershell -Command \"Invoke-RestMethod http://127.0.0.1:8000/health\" 2>&1 && powershell -Command \"Invoke-RestMethod http://127.0.0.1:8000/api/v1/insights/stats\" 2>&1)",
+      "Bash(pip freeze:*)",
+      "Bash(powershell -Command \"Invoke-RestMethod http://127.0.0.1:8000/api/v1/insights/stats\" 2>&1)",
+      "Bash(powershell -Command \"Invoke-RestMethod -Method POST -Uri http://127.0.0.1:8000/api/v1/search -ContentType 'application/json' -Body '{\\\\\"query\\\\\": \\\\\"people frustrated with project management tools\\\\\", \\\\\"limit\\\\\": 5}'\" 2>&1)",
+      "Bash(powershell -Command \"Invoke-RestMethod -Method POST -Uri http://127.0.0.1:8000/api/v1/llm/summarize -ContentType 'application/json' -Body '{\\\\\"query\\\\\": \\\\\"frustration with productivity tools\\\\\", \\\\\"limit\\\\\": 10}'\" 2>&1)",
+      "Bash(powershell -Command \"\\(Invoke-RestMethod -Method POST -Uri http://127.0.0.1:8000/api/v1/llm/ideas -ContentType 'application/json' -Body '{\\\\\"query\\\\\": \\\\\"people looking for better project management\\\\\", \\\\\"limit\\\\\": 10}'\\).content\" 2>&1)",
+      "Bash(npx:*)",
+      "Bash(cd frontend:*)",
+      "Bash(npm run:*)",
+      "Bash(git config:*)"
+    ]
+  }
+}

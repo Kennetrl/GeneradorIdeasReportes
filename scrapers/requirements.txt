@@ -1,0 +1,14 @@
+# ─── Dynamic sites (Capterra, G2, Trustpilot, AlternativeTo, ProductHunt) ────
+playwright>=1.40.0
+
+# ─── Static HTML fallback ─────────────────────────────────────────────────────
+beautifulsoup4>=4.12.0
+requests>=2.31.0
+lxml>=4.9.0
+
+# ─── Google Play ──────────────────────────────────────────────────────────────
+google-play-scraper>=1.2.4
+
+# ─── Data handling & export ───────────────────────────────────────────────────
+pandas>=2.1.0
+

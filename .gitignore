@@ -1,0 +1,122 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.coverage
+
+# Virtual environments
+.venv
+venv/
+env/
+ENV/
+
+# Node.js / Frontend
+node_modules/
+.next/
+out/
+.npm
+.eslintcache
+.node_repl_history
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.production.local
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+.directory
+
+# Logs
+*.log
+logs/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Data files (scrapers output)
+data/
+*.csv
+*.json
+!package.json
+!tsconfig.json
+!next.config.mjs
+!schema.sql
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+.tmp/
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Build outputs
+dist/
+build/
+.next/
+.nuxt/
+coverage/
+
+# Misc
+.cache/
+.parcel-cache/
+.turbo/
+turbo.json
+
+# Claude Code specific
+.claude/settings.json
+.claude/keybindings.json
