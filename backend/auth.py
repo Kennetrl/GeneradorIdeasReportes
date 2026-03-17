@@ -26,13 +26,16 @@ async def get_supabase_public_key() -> str:
     supabase_url = os.getenv("SUPABASE_URL")
     try:
         async with httpx.AsyncClient() as client:
-            response = await client.get(f"{supabase_url}/.well-known/jwks.json")
+            response = await client.get(f"{supabase_url}/.well-known/jwks.json", timeout=10)
             jwks = response.json()
             # Extract the public key from JWKS
             # Supabase uses RS256 with a single key in the set
-            key = jwks["keys"][0]
+            if not jwks.get("keys"):
+                raise ValueError("No keys found in JWKS")
+
+            key_data = jwks["keys"][0]
             from jose.backends.rsa_backend import RSABackend
-            _supabase_public_key = RSABackend.convert_jwk_to_key(key)
+            _supabase_public_key = RSABackend.convert_jwk_to_key(key_data)
             return _supabase_public_key
     except Exception as e:
         raise HTTPException(
@@ -47,11 +50,16 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     Returns user info including id, email, and role from user_profiles.
     """
     token = credentials.credentials
-    supabase_key = await get_supabase_public_key()
 
     try:
+        supabase_key = await get_supabase_public_key()
         # Verify JWT signature using Supabase public key
-        payload = jwt.verify_jwt(token, supabase_key, algorithms=["RS256"], audience="authenticated")
+        payload = jwt.decode(
+            token,
+            supabase_key,
+            algorithms=["RS256"],
+            audience="authenticated"
+        )
         user_id = payload.get("sub")
 
         if not user_id:
@@ -81,12 +89,14 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
             "role": profile["role"],
         }
 
-    except JWTError:
+    except JWTError as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token",
+            detail=f"Invalid token: {str(e)}",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
