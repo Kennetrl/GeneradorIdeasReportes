@@ -20,7 +20,9 @@
       "Bash(npx:*)",
       "Bash(cd frontend:*)",
       "Bash(npm run:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(git rm:*)",
+      "Bash(git push:*)"
     ]
   }
 }
