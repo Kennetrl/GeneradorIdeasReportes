@@ -1,11 +1,13 @@
 """
 Router para ejecutar y monitorear scrapers.
+Requires admin role.
 """
 
-from fastapi import APIRouter, BackgroundTasks
+from fastapi import APIRouter, BackgroundTasks, Depends
 from pydantic import BaseModel
 from backend.services.scraper_service import run_scraper_and_save
 from backend.database import get_supabase
+from backend.auth import require_role
 
 router = APIRouter(prefix="/scraper", tags=["scraper"])
 
@@ -47,7 +49,7 @@ def _run_scrapers_background(scrapers: list[str]):
 
 
 @router.post("/run")
-def run_scrapers(request: RunRequest, background_tasks: BackgroundTasks):
+def run_scrapers(request: RunRequest, background_tasks: BackgroundTasks, user: dict = Depends(require_role("admin"))):
     """Ejecuta scrapers en background. No bloquea la respuesta."""
     invalid = [s for s in request.scrapers if s not in ALL_SCRAPERS]
     if invalid:
@@ -62,7 +64,7 @@ def run_scrapers(request: RunRequest, background_tasks: BackgroundTasks):
 
 
 @router.get("/runs")
-def list_runs(limit: int = 20):
+def list_runs(limit: int = 20, user: dict = Depends(require_role("admin"))):
     """Historial de ejecuciones de scrapers."""
     db = get_supabase()
     result = (

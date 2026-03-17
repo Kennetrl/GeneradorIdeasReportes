@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
+import { UserMenu } from "./user-menu";
 import {
   LayoutDashboard,
   Search,
@@ -56,6 +57,7 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
+          <UserMenu />
           <MobileNav items={NAV_ITEMS} />
         </div>
       </div>

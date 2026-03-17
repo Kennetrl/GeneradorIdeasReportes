@@ -5,7 +5,7 @@ ProblemFinder API — FastAPI entrypoint.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.config import get_settings
-from backend.routers import insights, search, scraper, llm
+from backend.routers import insights, search, scraper, llm, admin
 
 settings = get_settings()
 
@@ -29,6 +29,7 @@ app.include_router(insights.router, prefix=settings.api_prefix)
 app.include_router(search.router, prefix=settings.api_prefix)
 app.include_router(scraper.router, prefix=settings.api_prefix)
 app.include_router(llm.router, prefix=settings.api_prefix)
+app.include_router(admin.router, prefix=settings.api_prefix)
 
 
 @app.get("/")
