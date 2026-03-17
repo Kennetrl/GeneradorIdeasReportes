@@ -6,7 +6,7 @@ All endpoints require admin role.
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List
 from backend.auth import get_current_user, require_role
-from backend.database import get_db_client
+from backend.database import get_supabase
 
 router = APIRouter(tags=["admin"])
 
@@ -17,7 +17,7 @@ async def list_users(user: dict = Depends(require_role("admin"))):
     List all users with their roles. Admin only.
     """
     try:
-        db = get_db_client()
+        db = get_supabase()
         response = db.table("user_profiles").select("id, email, full_name, role, created_at").execute()
         return {
             "total": len(response.data),
@@ -53,7 +53,7 @@ async def update_user_role(
         )
 
     try:
-        db = get_db_client()
+        db = get_supabase()
         result = db.table("user_profiles").update({"role": role}).eq("id", user_id).execute()
 
         if not result.data:

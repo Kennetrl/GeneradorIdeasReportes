@@ -9,7 +9,7 @@ from jose import jwt, JWTError
 import httpx
 import os
 from typing import Optional
-from backend.database import get_db_client
+from backend.database import get_supabase
 
 security = HTTPBearer()
 
@@ -70,7 +70,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
             )
 
         # Get user profile with role
-        db = get_db_client()
+        db = get_supabase()
         profiles = db.table("user_profiles").select("*").eq("id", user_id).execute()
 
         if not profiles.data:
