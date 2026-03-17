@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   Select,
@@ -38,6 +37,7 @@ export default function AdminUsersPage() {
     if (!authLoading && currentUser) {
       fetchUserRole();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser, authLoading]);
 
   const fetchUserRole = async () => {
@@ -160,7 +160,7 @@ export default function AdminUsersPage() {
                       <Select
                         value={selectedRole[u.id] || u.role}
                         onValueChange={(newRole) =>
-                          handleRoleChange(u.id, newRole)
+                          newRole && handleRoleChange(u.id, newRole)
                         }
                       >
                         <SelectTrigger className="w-32">

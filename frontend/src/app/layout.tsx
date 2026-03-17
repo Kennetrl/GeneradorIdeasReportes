@@ -27,16 +27,14 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          forcedTheme="dark"
           disableTransitionOnChange
         >
           <AuthProvider>
-            <div className="flex min-h-screen flex-col">
+            <div className="flex min-h-screen flex-col bg-black text-white">
               <Header />
-              <main className="flex-1">
-                <div className="mx-auto max-w-7xl px-4 py-6">{children}</div>
-              </main>
+              <main className="flex-1">{children}</main>
               <Footer />
             </div>
           </AuthProvider>
