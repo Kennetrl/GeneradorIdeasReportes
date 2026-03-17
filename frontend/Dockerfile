@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Frontend - Next.js
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Build stage
+FROM node:20-alpine as builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package.json package-lock.json* ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Build Next.js application
+RUN npm run build
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Production stage
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dumb-init to handle signals properly
+RUN apk add --no-cache dumb-init
+
+# Copy package files
+COPY package.json package-lock.json* ./
+
+# Install only production dependencies
+RUN npm ci --only=production
+
+# Copy built application from builder
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+
+# Set environment
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1
+
+# Expose port
+EXPOSE 3000
+
+# Use dumb-init to handle signals
+ENTRYPOINT ["dumb-init", "--"]
+
+# Start Next.js production server
+CMD ["npm", "start"]
